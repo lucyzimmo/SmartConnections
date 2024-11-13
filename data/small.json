@@ -1,0 +1,106 @@
+[
+  {
+    "id": 1,
+    "date": "2023-06-12",
+    "answers": [
+      {
+        "level": 0,
+        "group": "WET WEATHER",
+        "members": ["HAIL", "RAIN", "SLEET", "SNOW"]
+      },
+      {
+        "level": 1,
+        "group": "NBA TEAMS",
+        "members": ["BUCKS", "HEAT", "JAZZ", "NETS"]
+      },
+      {
+        "level": 2,
+        "group": "KEYBOARD KEYS",
+        "members": ["OPTION", "RETURN", "SHIFT", "TAB"]
+      },
+      {
+        "level": 3,
+        "group": "PALINDROMES",
+        "members": ["KAYAK", "LEVEL", "MOM", "RACECAR"]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "date": "2023-06-13",
+    "answers": [
+      {
+        "level": 0,
+        "group": "FOOTWEAR",
+        "members": ["BOOT", "LOAFER", "PUMP", "SNEAKER"]
+      },
+      {
+        "level": 1,
+        "group": "UNITS OF LENGTH",
+        "members": ["FOOT", "LEAGUE", "MILE", "YARD"]
+      },
+      {
+        "level": 2,
+        "group": "MAGAZINES",
+        "members": ["ESSENCE", "PEOPLE", "TIME", "US"]
+      },
+      {
+        "level": 3,
+        "group": "LETTER HOMOPHONES",
+        "members": ["ARE", "QUEUE", "SEA", "WHY"]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "date": "2023-06-14",
+    "answers": [
+      {
+        "level": 0,
+        "group": "FACIAL FEATURES",
+        "members": ["CHEEK", "EYE", "MOUTH", "NOSE"]
+      },
+      {
+        "level": 1,
+        "group": "SYNONYMS FOR EAT",
+        "members": ["CHOW", "GOBBLE", "SCARF", "WOLF"]
+      },
+      {
+        "level": 2,
+        "group": "DOG BREEDS, INFORMALLY",
+        "members": ["LAB", "PEKE", "PIT", "POM"]
+      },
+      {
+        "level": 3,
+        "group": "MEMBERS OF A TRIO",
+        "members": ["AMIGO", "KING", "STOOGE", "TENOR"]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "date": "2023-06-15",
+    "answers": [
+      {
+        "level": 0,
+        "group": "SNEAKER BRANDS",
+        "members": ["ADIDAS", "NIKE", "PUMA", "REEBOK"]
+      },
+      {
+        "level": 1,
+        "group": "MUSICALS BEGINNING WITH \u201cC\u201d",
+        "members": ["CABARET", "CAROUSEL", "CATS", "CHICAGO"]
+      },
+      {
+        "level": 2,
+        "group": "CLEANING VERBS",
+        "members": ["DUST", "MOP", "SWEEP", "VACUUM"]
+      },
+      {
+        "level": 3,
+        "group": "___ MAN SUPERHEROES",
+        "members": ["BAT", "IRON", "SPIDER", "SUPER"]
+      }
+    ]
+  }
+]
