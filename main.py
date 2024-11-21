@@ -1,135 +1,68 @@
 import json
-from itertools import combinations
 import random
-from generateRandom import generate_random_puzzle_from_past_words  # Import the random puzzle generator
+import os
+from baseline import evaluate_baseline, q_learning
+from deepq import train_word2vec, QNetwork, evaluate_deepq, train_q_network
+import torch
+import torch.optim as optim
+import torch.nn as nn
 
-# Q-learning Parameters
-alpha = 0.1       # Learning rate
-gamma = 0.9       # Discount factor
-epsilon = 0.3     # Exploration rate
-num_episodes = 500 # Number of training episodes
+# Generate a random puzzle for evaluation
+def generate_random_puzzle():
+    with open('data/small.json', 'r') as f:
+        puzzles = json.load(f)
+    return random.choice(puzzles)
 
-# Initialize Q-table as a dictionary
-Q_table = {}
+# Main function
+def main():
+    # Load puzzles
+    with open('data/small.json', 'r') as f:
+        puzzles = json.load(f)
 
-# Load puzzle data from JSON file for Q-learning training
-with open('data/small.json', 'r') as f:
-    puzzles = json.load(f)
+    # Train baseline Q-learning
+    print("Training baseline Q-learning...")
+    q_learning(puzzles, 500)
 
-# Function to check if a grouping is correct
-def is_correct_grouping(action, correct_groups):
-    return any(set(action) == set(group["members"]) for group in correct_groups)
+    # Train Word2Vec
+    print("Training Word2Vec...")
+    word2vec_model = train_word2vec(puzzles)
 
-# Generate all possible groupings of four words as actions
-def generate_possible_actions(words):
-    return list(combinations(words, 4))
+    # Initialize Q-network
+    input_dim = 600  # 300 (state embedding) + 300 (action embedding)
+    q_network = QNetwork(input_dim)
+    optimizer = optim.Adam(q_network.parameters(), lr=0.001)
+    loss_fn = nn.MSELoss()
 
-# Reward function: +1 for a correct grouping, -1 for incorrect
-def reward_function(action, correct_groups):
-    return 1 if is_correct_grouping(action, correct_groups) else -1
-
-# Update Q-value function
-def update_q_table(state, action, reward, next_state):
-    state_action = (str(state), action)
-    old_value = Q_table.get(state_action, 0)
-    
-    # Handle empty possible actions
-    possible_actions = generate_possible_actions(state['remaining_words'])
-    if possible_actions:
-        next_max = max(Q_table.get((str(next_state), a), 0) for a in possible_actions)
+    # Check if Q-network weights exist
+    if not os.path.exists("q_network.pth"):
+        print("Q-network weights not found. Training the Q-network...")
+        train_q_network(puzzles, word2vec_model, num_episodes=10, q_network=q_network, optimizer=optimizer, loss_fn=loss_fn)
+        torch.save(q_network.state_dict(), "q_network.pth")
+        print("Q-network training complete and weights saved to q_network.pth")
     else:
-        next_max = 0
-    
-    Q_table[state_action] = old_value + alpha * (reward + gamma * next_max - old_value)
+        print("Loading pre-trained Q-network weights...")
+        q_network.load_state_dict(torch.load("q_network.pth"))
+        q_network.eval()
 
-# Q-learning algorithm for multiple puzzles
-def q_learning(puzzles, num_episodes):
-    for episode in range(num_episodes):
-        for puzzle in puzzles:
-            correct_groups = puzzle["answers"]
-            all_words = [word for group in correct_groups for word in group["members"]]
-            state = {
-                "correct_groups": [],
-                "incorrect_groups": [],
-                "remaining_words": all_words.copy()
-            }
-            done = False
+    # Generate a random puzzle
+    puzzle = generate_random_puzzle()
 
-            while not done:
-                # Epsilon-greedy action selection
-                possible_actions = generate_possible_actions(state["remaining_words"])
-                if random.uniform(0, 1) < epsilon:
-                    action = random.choice(possible_actions)  # Explore
-                else:
-                    # Exploit: choose the action with the max Q-value that’s not in incorrect_groups
-                    action = max((a for a in possible_actions if set(a) not in state["incorrect_groups"]),
-                                 key=lambda x: Q_table.get((str(state), x), 0), default=random.choice(possible_actions))
+    # Evaluate both methods
+    print("\nEvaluating Baseline Method...")
+    baseline_guesses = evaluate_baseline(puzzle)
+    print("\nEvaluating Deep Q-Learning Method...")
+    deepq_guesses = evaluate_deepq(puzzle, q_network, word2vec_model)
 
-                # Determine reward and next state
-                reward = reward_function(action, correct_groups)
-                if reward == 1:
-                    # Update state if action was correct
-                    state["correct_groups"].append(set(action))
-                    state["remaining_words"] = [w for w in state["remaining_words"] if w not in action]
-                else:
-                    # Add to incorrect groups to avoid repeating
-                    state["incorrect_groups"].append(set(action))
-                
-                # Check if the puzzle is solved
-                done = len(state["correct_groups"]) == 4
-                
-                # Update Q-table
-                next_state = state.copy()
-                update_q_table(state, action, reward, next_state)
+    # Compare results
+    print("\nComparison:")
+    print(f"Baseline guesses: {baseline_guesses}")
+    print(f"Deep Q-Learning guesses: {deepq_guesses}")
+    if baseline_guesses < deepq_guesses:
+        print("Baseline performed better.")
+    elif deepq_guesses < baseline_guesses:
+        print("Deep Q-Learning performed better.")
+    else:
+        print("Both methods performed equally well.")
 
-# Train the agent on all puzzles
-q_learning(puzzles, num_episodes)
-
-# Evaluate the trained agent on a generated random puzzle
-def evaluate_agent(puzzle):
-    correct_groups = puzzle["solution"]
-    all_words = puzzle["puzzle_words"]
-    state = {
-        "correct_groups": [],
-        "incorrect_groups": [],
-        "remaining_words": all_words.copy()
-    }
-    guesses = 0
-    done = False
-
-    print("\nStarting a new game!")
-    print(f"Puzzle words: {state['remaining_words']}")
-
-    while not done:
-        possible_actions = generate_possible_actions(state["remaining_words"])
-        action = max(
-            (a for a in possible_actions if set(a) not in state["incorrect_groups"]),
-            key=lambda x: Q_table.get((str(state), x), 0),
-            default=random.choice(possible_actions)
-        )
-
-        # Check if the action is a correct grouping
-        is_correct = is_correct_grouping(action, correct_groups)
-
-        # Update the state and reward based on action
-        if is_correct:
-            print(f"\nGuess #{guesses + 1}: {action} -> Correct group!")
-            state["correct_groups"].append(set(action))
-            state["remaining_words"] = [w for w in state["remaining_words"] if w not in action]
-        else:
-            print(f"\nGuess #{guesses + 1}: {action} -> Incorrect group.")
-            state["incorrect_groups"].append(set(action))
-
-        guesses += 1
-        done = len(state["correct_groups"]) == 4
-
-        # Display the current state after each guess
-        print(f"Current correct groups: {state['correct_groups']}")
-        print(f"Remaining words: {state['remaining_words']}")
-        print(f"Incorrect groups so far: {state['incorrect_groups']}")
-
-    print(f"\nPuzzle solved in {guesses} guesses!\nFinal correct groups: {state['correct_groups']}")
-
-# Generate and test the agent on a new random puzzle
-puzzle = generate_random_puzzle_from_past_words()
-evaluate_agent(puzzle)
+if __name__ == "__main__":
+    main()
