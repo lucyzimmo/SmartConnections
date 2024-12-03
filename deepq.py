@@ -33,10 +33,23 @@ def train_word2vec(puzzles):
 
 # Embed words
 def embed_words(words, model):
-    return torch.tensor(
-        sum(model.wv[word] for word in words if word in model.wv) / len(words),
-        dtype=torch.float32
-    )
+    if not words:
+        return torch.zeros(embedding_dim, dtype=torch.float32)  # Return a zero-vector if no words
+    valid_vectors = [model.wv[word] for word in words if word in model.wv]
+    if not valid_vectors:
+        return torch.zeros(embedding_dim, dtype=torch.float32)  # Return zero-vector if no valid words
+    return torch.tensor(sum(valid_vectors) / len(valid_vectors), dtype=torch.float32)
+
+
+# Safe loading for PyTorch
+def load_q_network(filepath, input_dim):
+    q_network = QNetwork(input_dim)
+    try:
+        q_network.load_state_dict(torch.load(filepath, map_location=torch.device('cpu')))
+    except RuntimeError as e:
+        print(f"Failed to load Q-network. Check the file or consider setting weights_only=True.\n{e}")
+        raise
+    return q_network
 
 def train_q_network(puzzles, word2vec_model, num_episodes, q_network, optimizer, loss_fn):
     import time  # For timing episodes
@@ -90,7 +103,9 @@ def train_q_network(puzzles, word2vec_model, num_episodes, q_network, optimizer,
                         word for word in next_state["remaining_words"] if word not in action
                     ]
                 else:
-                    next_state["incorrect_groups"].append(set(action))
+                    # Only add the incorrect group if it's not already present
+                    if set(action) not in next_state["incorrect_groups"]:
+                        next_state["incorrect_groups"].append(set(action))
 
                 # Check if puzzle is solved
                 done = len(next_state["correct_groups"]) == 4
@@ -129,9 +144,58 @@ def train_q_network(puzzles, word2vec_model, num_episodes, q_network, optimizer,
     total_duration = time.time() - start_time
     print(f"\nTraining completed in {total_duration:.2f} seconds.")
 
+# Generate all possible groupings of four words as actions
+def generate_possible_actions(words):
+    return list(combinations(words, 4))
+
 # Evaluate using deep Q-learning
-def evaluate_deepq(puzzle, q_network, model):
+def evaluate_deepq(puzzle, q_network, word2vec_model):
     correct_groups = puzzle["solution"]
     all_words = puzzle["puzzle_words"]
-    state = {"correct_groups": [], "incorrect_groups": [], "remaining_words": all_words.copy()}
+    state = {
+        "correct_groups": [],
+        "incorrect_groups": [],
+        "remaining_words": all_words.copy()
+    }
+
+    print("\nStarting evaluation:")
     guesses = 0
+    done = False
+
+    while not done:
+        state_embedding = embed_words(state["remaining_words"], word2vec_model).unsqueeze(0)  # Ensure 2D tensor
+        possible_actions = [
+            action for action in generate_possible_actions(state["remaining_words"])
+            if set(action) not in state["correct_groups"] and set(action) not in state["incorrect_groups"]
+        ]
+
+        action = max(
+            possible_actions,
+            key=lambda a: q_network(
+                torch.cat((
+                    state_embedding, 
+                    embed_words(a, word2vec_model).unsqueeze(0)  # Ensure 2D tensor
+                ), dim=1)
+            ).item()
+        )
+
+        is_correct = any(set(action) == set(group["members"]) for group in correct_groups)
+        if is_correct:
+            state["correct_groups"].append(set(action))
+            state["remaining_words"] = [w for w in state["remaining_words"] if w not in action]
+        else:  # Incorrect guess
+            if set(action) not in state["incorrect_groups"]:
+                state["incorrect_groups"].append(set(action))
+
+
+        guesses += 1
+        done = len(state["correct_groups"]) == 4
+        
+        print(f"Current correct groups: {state['correct_groups']}")
+        print(f"Remaining words: {state['remaining_words']}")
+        print(f"Incorrect groups so far: {state['incorrect_groups']}")
+
+    print(f"\nPuzzle solved in {guesses} guesses!\nFinal correct groups: {state['correct_groups']}")
+
+    print(f"Puzzle solved in {guesses} guesses.")
+    return guesses

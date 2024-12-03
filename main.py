@@ -2,16 +2,12 @@ import json
 import random
 import os
 from baseline import evaluate_baseline, q_learning
+from generateRandom import generate_random_puzzle_from_past_words
 from deepq import train_word2vec, QNetwork, evaluate_deepq, train_q_network
 import torch
 import torch.optim as optim
 import torch.nn as nn
 
-# Generate a random puzzle for evaluation
-def generate_random_puzzle():
-    with open('data/small.json', 'r') as f:
-        puzzles = json.load(f)
-    return random.choice(puzzles)
 
 # Main function
 def main():
@@ -20,8 +16,8 @@ def main():
         puzzles = json.load(f)
 
     # Train baseline Q-learning
-    print("Training baseline Q-learning...")
-    q_learning(puzzles, 500)
+    #print("Training baseline Q-learning...")
+    #q_learning(puzzles, 500)
 
     # Train Word2Vec
     print("Training Word2Vec...")
@@ -45,24 +41,24 @@ def main():
         q_network.eval()
 
     # Generate a random puzzle
-    puzzle = generate_random_puzzle()
+    puzzle = generate_random_puzzle_from_past_words()
 
     # Evaluate both methods
-    print("\nEvaluating Baseline Method...")
-    baseline_guesses = evaluate_baseline(puzzle)
+    #print("\nEvaluating Baseline Method...")
+    #baseline_guesses = evaluate_baseline(puzzle)
     print("\nEvaluating Deep Q-Learning Method...")
     deepq_guesses = evaluate_deepq(puzzle, q_network, word2vec_model)
 
     # Compare results
     print("\nComparison:")
-    print(f"Baseline guesses: {baseline_guesses}")
+    #print(f"Baseline guesses: {baseline_guesses}")
     print(f"Deep Q-Learning guesses: {deepq_guesses}")
-    if baseline_guesses < deepq_guesses:
-        print("Baseline performed better.")
-    elif deepq_guesses < baseline_guesses:
-        print("Deep Q-Learning performed better.")
-    else:
-        print("Both methods performed equally well.")
+    #if baseline_guesses < deepq_guesses:
+       # print("Baseline performed better.")
+    #elif deepq_guesses < baseline_guesses:
+       # print("Deep Q-Learning performed better.")
+    #else:
+       # print("Both methods performed equally well.")
 
 if __name__ == "__main__":
     main()
