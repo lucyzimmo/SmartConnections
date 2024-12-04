@@ -32,13 +32,35 @@ def train_word2vec(puzzles):
     return model
 
 # Embed words
+#3def embed_words(words, model):
+#    if not words:
+#        return torch.zeros(embedding_dim, dtype=torch.float32)  # Return a zero-vector if no words
+#    valid_vectors = [model.wv[word] for word in words if word in model.wv]
+#    if not valid_vectors:
+#        return torch.zeros(embedding_dim, dtype=torch.float32)  # Return zero-vector if no valid words
+#    return torch.tensor(sum(valid_vectors) / len(valid_vectors), dtype=torch.float32)
+
 def embed_words(words, model):
+    vocabulary = list(model.wv.key_to_index.keys())
+    #(f"[DEBUG] Word2Vec Vocabulary ({len(vocabulary)} words): {vocabulary}")
+
     if not words:
+        #print("[DEBUG] Empty words list provided to embed_words.")
         return torch.zeros(embedding_dim, dtype=torch.float32)  # Return a zero-vector if no words
+    
+    # Check if words are in the Word2Vec vocabulary
     valid_vectors = [model.wv[word] for word in words if word in model.wv]
     if not valid_vectors:
+        #print(f"[DEBUG] None of the words are in the Word2Vec vocabulary: {words}")
         return torch.zeros(embedding_dim, dtype=torch.float32)  # Return zero-vector if no valid words
+
+    # Debugging valid vectors
+    #print(f"[DEBUG] Valid word embeddings: {[model.wv[word] for word in words if word in model.wv]}")
+    
+    # Compute the average embedding
     return torch.tensor(sum(valid_vectors) / len(valid_vectors), dtype=torch.float32)
+
+
 
 
 # Safe loading for PyTorch
@@ -179,6 +201,20 @@ def evaluate_deepq(puzzle, q_network, word2vec_model):
             ).item()
         )
 
+        state_action_input = torch.cat((
+            state_embedding, 
+            embed_words(action, word2vec_model).unsqueeze(0)  # Ensure 2D tensor
+        ), dim=1)
+
+        print(f"[Evaluation] Guess #{guesses + 1}: Q-network input (state + action embedding): {state_action_input.squeeze(0)}")
+
+
+        
+        q_value = q_network(
+            torch.cat((state_embedding, embed_words(action, word2vec_model).unsqueeze(0)), dim=1)
+        ).item()
+        print(f"[Deep Q-Learning] Guess #{guesses + 1}: {action}, Q-Value: {q_value}")
+
         is_correct = any(set(action) == set(group["members"]) for group in correct_groups)
         if is_correct:
             state["correct_groups"].append(set(action))
@@ -193,7 +229,7 @@ def evaluate_deepq(puzzle, q_network, word2vec_model):
         
         print(f"Current correct groups: {state['correct_groups']}")
         print(f"Remaining words: {state['remaining_words']}")
-        print(f"Incorrect groups so far: {state['incorrect_groups']}")
+        #print(f"Incorrect groups so far: {state['incorrect_groups']}")
 
     print(f"\nPuzzle solved in {guesses} guesses!\nFinal correct groups: {state['correct_groups']}")
 

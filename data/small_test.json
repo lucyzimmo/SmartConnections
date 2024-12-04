@@ -1,0 +1,106 @@
+[
+    {
+      "id": 5,
+      "date": "2023-06-16",
+      "answers": [
+        {
+          "level": 0,
+          "group": "ANIMALS",
+          "members": ["LAB", "POM", "WOLF", "PEKE"]
+        },
+        {
+          "level": 1,
+          "group": "CLOTHING ITEMS",
+          "members": ["BOOT", "CHEEK", "PUMP", "SNEAKER"]
+        },
+        {
+          "level": 2,
+          "group": "SPORTS TERMINOLOGY",
+          "members": ["JAZZ", "FOOT", "YARD", "BUCKS"]
+        },
+        {
+          "level": 3,
+          "group": "WORDS WITH DOUBLE LETTERS",
+          "members": ["LEVEL", "QUEUE", "REEBOK", "DUST"]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "date": "2023-06-17",
+      "answers": [
+        {
+          "level": 0,
+          "group": "MODES OF TRANSPORTATION",
+          "members": ["BOOT", "KAYAK", "LAB", "IRON"]
+        },
+        {
+          "level": 1,
+          "group": "ACTIONS",
+          "members": ["DUST", "RETURN", "SCARF", "GOBBLE"]
+        },
+        {
+          "level": 2,
+          "group": "THINGS FOUND IN WEATHER REPORTS",
+          "members": ["RAIN", "SLEET", "MILE", "SNOW"]
+        },
+        {
+          "level": 3,
+          "group": "THINGS IN A HOME",
+          "members": ["MOP", "TAB", "EYE", "VACUUM"]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "date": "2023-06-18",
+      "answers": [
+        {
+          "level": 0,
+          "group": "THREE-LETTER WORDS",
+          "members": ["LAB", "PIT", "ARE", "SEA"]
+        },
+        {
+          "level": 1,
+          "group": "BRANDS",
+          "members": ["NIKE", "PUMA", "ADIDAS", "REEBOK"]
+        },
+        {
+          "level": 2,
+          "group": "MUSICAL TERMS",
+          "members": ["KING", "TENOR", "CHICAGO", "CABARET"]
+        },
+        {
+          "level": 3,
+          "group": "PALINDROMES",
+          "members": ["MOM", "KAYAK", "LEVEL", "RACECAR"]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "date": "2023-06-19",
+      "answers": [
+        {
+          "level": 0,
+          "group": "THINGS YOU CAN MEASURE",
+          "members": ["FOOT", "YARD", "MILE", "LEAGUE"]
+        },
+        {
+          "level": 1,
+          "group": "SUPERHERO THEMES",
+          "members": ["IRON", "SPIDER", "BAT", "SUPER"]
+        },
+        {
+          "level": 2,
+          "group": "MAGAZINES",
+          "members": ["PEOPLE", "TIME", "ESSENCE", "US"]
+        },
+        {
+          "level": 3,
+          "group": "THINGS ASSOCIATED WITH FOOD",
+          "members": ["CHOW", "WOLF", "SCARF", "GOBBLE"]
+        }
+      ]
+    }
+  ]  

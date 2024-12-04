@@ -101,7 +101,10 @@ def evaluate_baseline(puzzle):
     print(f"Puzzle words: {state['remaining_words']}")
 
     while not done:
-        possible_actions = generate_possible_actions(state["remaining_words"])
+        possible_actions = [
+            action for action in generate_possible_actions(state["remaining_words"])
+            if set(action) not in state["correct_groups"] and set(action) not in state["incorrect_groups"]
+        ]
         action = max(
             (a for a in possible_actions if set(a) not in state["incorrect_groups"]),
             key=lambda x: Q_table.get((str(state), x), 0),
@@ -111,13 +114,16 @@ def evaluate_baseline(puzzle):
         # Check if the action is a correct grouping
         is_correct = is_correct_grouping(action, correct_groups)
 
+         # Log the action and its result
+        print(f"[Baseline] Guess #{guesses + 1}: {action} (Correct: {is_correct})")
+
         # Update the state and reward based on action
         if is_correct:
-            print(f"\nGuess #{guesses + 1}: {action} -> Correct group!")
+            #print(f"\nGuess #{guesses + 1}: {action} -> Correct group!")
             state["correct_groups"].append(set(action))
             state["remaining_words"] = [w for w in state["remaining_words"] if w not in action]
         else:
-            print(f"\nGuess #{guesses + 1}: {action} -> Incorrect group.")
+            #print(f"\nGuess #{guesses + 1}: {action} -> Incorrect group.")
             state["incorrect_groups"].append(set(action))
 
         guesses += 1
@@ -126,7 +132,7 @@ def evaluate_baseline(puzzle):
         # Display the current state after each guess
         print(f"Current correct groups: {state['correct_groups']}")
         print(f"Remaining words: {state['remaining_words']}")
-        print(f"Incorrect groups so far: {state['incorrect_groups']}")
+        #print(f"Incorrect groups so far: {state['incorrect_groups']}")
 
     print(f"\nPuzzle solved in {guesses} guesses!\nFinal correct groups: {state['correct_groups']}")
     return guesses
