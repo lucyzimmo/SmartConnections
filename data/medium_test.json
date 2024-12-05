@@ -1,0 +1,210 @@
+[
+  {
+    "id": 21,
+    "date": "2024-12-05",
+    "answers": [
+      {
+        "level": 0,
+        "group": "Transportation",
+        "members": ["RAIL", "GO", "JAIL", "BOARDWALK"]
+      },
+      {
+        "level": 1,
+        "group": "Colors",
+        "members": ["BLUE", "GREEN", "SCARLET", "RUBY"]
+      },
+      {
+        "level": 2,
+        "group": "Streaming Platforms",
+        "members": ["HULU", "NETFLIX", "PRIME", "PEACOCK"]
+      },
+      {
+        "level": 3,
+        "group": "Things Found in Kitchens",
+        "members": ["MOP", "VACUUM", "RELISH", "ONION"]
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "date": "2024-12-05",
+    "answers": [
+      {
+        "level": 0,
+        "group": "Music Artists",
+        "members": ["Q-TIP", "COMMON", "ICE CUBE", "FUTURE"]
+      },
+      {
+        "level": 1,
+        "group": "Furniture",
+        "members": ["THRONE", "HEAD", "FOOT", "LEAGUE"]
+      },
+      {
+        "level": 2,
+        "group": "Animal Parts",
+        "members": ["CHEEK", "NOSE", "EYE", "MOUTH"]
+      },
+      {
+        "level": 3,
+        "group": "Things You Wear",
+        "members": ["SNEAKER", "LOAFER", "BOOT", "PUMP"]
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "date": "2024-12-05",
+    "answers": [
+      {
+        "level": 0,
+        "group": "Synonyms for Small Animals",
+        "members": ["CUB", "CALF", "KID", "JOEY"]
+      },
+      {
+        "level": 1,
+        "group": "Verbs Associated with Cleaning",
+        "members": ["DUST", "MOP", "SWEEP", "VACUUM"]
+      },
+      {
+        "level": 2,
+        "group": "Homophones",
+        "members": ["ARE", "QUEUE", "SEA", "WHY"]
+      },
+      {
+        "level": 3,
+        "group": "Board Games",
+        "members": ["CHESS", "CHECKERS", "BACKGAMMON", "GO"]
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "date": "2024-12-05",
+    "answers": [
+      {
+        "level": 0,
+        "group": "Actions Related to Eating",
+        "members": ["CHOW", "SCARF", "WOLF", "GOBBLE"]
+      },
+      {
+        "level": 1,
+        "group": "Things That Are Red",
+        "members": ["CHERRY", "FIRE TRUCK", "RUBY", "STOP SIGN"]
+      },
+      {
+        "level": 2,
+        "group": "Units of Measurement",
+        "members": ["YARD", "FOOT", "MILE", "LEAGUE"]
+      },
+      {
+        "level": 3,
+        "group": "Letters or Words for Sound",
+        "members": ["ARE", "SEA", "WHY", "QUEUE"]
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "date": "2024-12-05",
+    "answers": [
+      {
+        "level": 0,
+        "group": "Types of Weather",
+        "members": ["RAIN", "HAIL", "SLEET", "DUST"]
+      },
+      {
+        "level": 1,
+        "group": "Shades of Blue",
+        "members": ["BABY", "POWDER", "MIDNIGHT", "ROYAL"]
+      },
+      {
+        "level": 2,
+        "group": "Vegetables",
+        "members": ["BEET", "CORN", "CARROT", "ONION"]
+      },
+      {
+        "level": 3,
+        "group": "Musicals",
+        "members": ["CABARET", "CAROUSEL", "CATS", "CHICAGO"]
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "date": "2024-12-05",
+    "answers": [
+      {
+        "level": 0,
+        "group": "Birds",
+        "members": ["CRANE", "JAY", "SWALLOW", "TURKEY"]
+      },
+      {
+        "level": 1,
+        "group": "Zodiac Animals",
+        "members": ["GOAT", "TWINS", "SCALES", "FISH"]
+      },
+      {
+        "level": 2,
+        "group": "Things You Can Unlock",
+        "members": ["PIANO", "FLORIDA", "LOCKSMITH", "CRYPTOGRAPHY"]
+      },
+      {
+        "level": 3,
+        "group": "Condiments",
+        "members": ["KETCHUP", "RELISH", "TARTAR", "MAYO"]
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "date": "2024-12-05",
+    "answers": [
+      {
+        "level": 0,
+        "group": "Palindromes",
+        "members": ["KAYAK", "LEVEL", "MOM", "RACECAR"]
+      },
+      {
+        "level": 1,
+        "group": "Dog Breeds (Informal)",
+        "members": ["LAB", "PEKE", "PIT", "POM"]
+      },
+      {
+        "level": 2,
+        "group": "Clue Characters",
+        "members": ["GREEN", "MUSTARD", "PLUM", "SCARLET"]
+      },
+      {
+        "level": 3,
+        "group": "Sports",
+        "members": ["POLO", "SQUASH", "CRICKET", "FENCING"]
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "date": "2024-12-05",
+    "answers": [
+      {
+        "level": 0,
+        "group": "Things Associated with Music",
+        "members": ["PIANO", "CRYPTOGRAPHY", "KEY", "ICE CUBE"]
+      },
+      {
+        "level": 1,
+        "group": "Things You Find on the Board",
+        "members": ["JAIL", "BOARDWALK", "CHANCE", "GO"]
+      },
+      {
+        "level": 2,
+        "group": "Body Parts",
+        "members": ["NOSE", "THIGH", "MOUTH", "CHEEK"]
+      },
+      {
+        "level": 3,
+        "group": "Streaming Platforms",
+        "members": ["HULU", "PRIME", "PEACOCK", "NETFLIX"]
+      }
+    ]
+  }
+]

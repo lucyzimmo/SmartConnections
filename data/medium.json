@@ -1,0 +1,262 @@
+[
+  {
+    "id": 1,
+    "date": "2023-06-12",
+    "answers": [
+      {
+        "level": 0,
+        "group": "WET WEATHER",
+        "members": ["HAIL", "RAIN", "SLEET", "SNOW"]
+      },
+      {
+        "level": 1,
+        "group": "NBA TEAMS",
+        "members": ["BUCKS", "HEAT", "JAZZ", "NETS"]
+      },
+      {
+        "level": 2,
+        "group": "KEYBOARD KEYS",
+        "members": ["OPTION", "RETURN", "SHIFT", "TAB"]
+      },
+      {
+        "level": 3,
+        "group": "PALINDROMES",
+        "members": ["KAYAK", "LEVEL", "MOM", "RACECAR"]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "date": "2023-06-13",
+    "answers": [
+      {
+        "level": 0,
+        "group": "FOOTWEAR",
+        "members": ["BOOT", "LOAFER", "PUMP", "SNEAKER"]
+      },
+      {
+        "level": 1,
+        "group": "UNITS OF LENGTH",
+        "members": ["FOOT", "LEAGUE", "MILE", "YARD"]
+      },
+      {
+        "level": 2,
+        "group": "MAGAZINES",
+        "members": ["ESSENCE", "PEOPLE", "TIME", "US"]
+      },
+      {
+        "level": 3,
+        "group": "LETTER HOMOPHONES",
+        "members": ["ARE", "QUEUE", "SEA", "WHY"]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "date": "2023-06-14",
+    "answers": [
+      {
+        "level": 0,
+        "group": "FACIAL FEATURES",
+        "members": ["CHEEK", "EYE", "MOUTH", "NOSE"]
+      },
+      {
+        "level": 1,
+        "group": "SYNONYMS FOR EAT",
+        "members": ["CHOW", "GOBBLE", "SCARF", "WOLF"]
+      },
+      {
+        "level": 2,
+        "group": "DOG BREEDS, INFORMALLY",
+        "members": ["LAB", "PEKE", "PIT", "POM"]
+      },
+      {
+        "level": 3,
+        "group": "MEMBERS OF A TRIO",
+        "members": ["AMIGO", "KING", "STOOGE", "TENOR"]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "date": "2023-06-15",
+    "answers": [
+      {
+        "level": 0,
+        "group": "SNEAKER BRANDS",
+        "members": ["ADIDAS", "NIKE", "PUMA", "REEBOK"]
+      },
+      {
+        "level": 1,
+        "group": "MUSICALS BEGINNING WITH \u201cC\u201d",
+        "members": ["CABARET", "CAROUSEL", "CATS", "CHICAGO"]
+      },
+      {
+        "level": 2,
+        "group": "CLEANING VERBS",
+        "members": ["DUST", "MOP", "SWEEP", "VACUUM"]
+      },
+      {
+        "level": 3,
+        "group": "___ MAN SUPERHEROES",
+        "members": ["BAT", "IRON", "SPIDER", "SUPER"]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "date": "2023-06-16",
+    "answers": [
+      {
+        "level": 0,
+        "group": "STREAMING SERVICES",
+        "members": ["HULU", "NETFLIX", "PEACOCK", "PRIME"]
+      },
+      {
+        "level": 1,
+        "group": "CONDIMENTS",
+        "members": ["KETCHUP", "MAYO", "RELISH", "TARTAR"]
+      },
+      {
+        "level": 2,
+        "group": "SYNONYMS FOR SAD",
+        "members": ["BLUE", "DOWN", "GLUM", "LOW"]
+      },
+      {
+        "level": 3,
+        "group": "CLUE CHARACTERS",
+        "members": ["GREEN", "MUSTARD", "PLUM", "SCARLET"]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "date": "2023-06-17",
+    "answers": [
+      {
+        "level": 0,
+        "group": "MONOPOLY SQUARES",
+        "members": ["BOARDWALK", "CHANCE", "GO", "JAIL"]
+      },
+      {
+        "level": 1,
+        "group": "SHADES OF BLUE",
+        "members": ["BABY", "MIDNIGHT", "POWDER", "ROYAL"]
+      },
+      {
+        "level": 2,
+        "group": "RAPPERS",
+        "members": ["COMMON", "FUTURE", "ICE CUBE", "Q-TIP"]
+      },
+      {
+        "level": 3,
+        "group": "MEMBERS OF A SEPTET",
+        "members": ["SEA", "SIN", "SISTER", "WONDER"]
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "date": "2023-06-18",
+    "answers": [
+      {
+        "level": 0,
+        "group": "LEG PARTS",
+        "members": ["ANKLE", "KNEE", "SHIN", "THIGH"]
+      },
+      {
+        "level": 1,
+        "group": "BABY ANIMALS",
+        "members": ["CALF", "CUB", "JOEY", "KID"]
+      },
+      {
+        "level": 2,
+        "group": "SLANG FOR TOILET",
+        "members": ["CAN", "HEAD", "JOHN", "THRONE"]
+      },
+      {
+        "level": 3,
+        "group": "___ FISH THAT AREN\u2019T FISH",
+        "members": ["CRAY", "JELLY", "SILVER", "STAR"]
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "date": "2023-06-19",
+    "answers": [
+      {
+        "level": 0,
+        "group": "BOARD GAMES",
+        "members": ["BACKGAMMON", "CHECKERS", "CHESS", "GO"]
+      },
+      {
+        "level": 1,
+        "group": "MATTRESS SIZES",
+        "members": ["FULL", "KING", "QUEEN", "TWIN"]
+      },
+      {
+        "level": 2,
+        "group": "THINGS THAT ARE RED",
+        "members": ["CHERRY", "FIRE TRUCK", "RUBY", "STOP SIGN"]
+      },
+      {
+        "level": 3,
+        "group": "THINGS WITH KEYS",
+        "members": ["CRYPTOGRAPHY", "FLORIDA", "LOCKSMITH", "PIANO"]
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "date": "2023-06-20",
+    "answers": [
+      {
+        "level": 0,
+        "group": "SPORTS",
+        "members": ["CRICKET", "FENCING", "POLO", "SQUASH"]
+      },
+      {
+        "level": 1,
+        "group": "TOPS",
+        "members": ["CAMI", "HALTER", "TANK", "TEE"]
+      },
+      {
+        "level": 2,
+        "group": "VEGETABLES",
+        "members": ["BEET", "CARROT", "CORN", "ONION"]
+      },
+      {
+        "level": 3,
+        "group": "INSECTS",
+        "members": ["ANT", "BEETLE", "MANTIS", "TERMITE"]
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "date": "2023-06-21",
+    "answers": [
+      {
+        "level": 0,
+        "group": "FRUIT",
+        "members": ["DATE", "KIWI", "LEMON", "ORANGE"]
+      },
+      {
+        "level": 1,
+        "group": "COUNTRIES",
+        "members": ["CHAD", "GEORGIA", "JORDAN", "TOGO"]
+      },
+      {
+        "level": 2,
+        "group": "BIRDS",
+        "members": ["CRANE", "JAY", "SWALLOW", "TURKEY"]
+      },
+      {
+        "level": 3,
+        "group": "ZODIAC SYMBOLS",
+        "members": ["FISH", "GOAT", "SCALES", "TWINS"]
+      }
+    ]
+  }
+]
