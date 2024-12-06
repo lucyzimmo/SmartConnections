@@ -128,10 +128,9 @@ def evaluate_q_network_experiment(puzzle, q_network, word2vec_model):
 
     print("\nStarting Evaluation:")
     guesses = 0
-    max_guesses = 100  # Prevent infinite loops
     done = False
 
-    while not done and guesses < max_guesses:
+    while not done:
         guesses += 1
 
         # Embed current state
@@ -169,8 +168,6 @@ def evaluate_q_network_experiment(puzzle, q_network, word2vec_model):
         # Check if the puzzle is solved
         done = len(state["correct_groups"]) == len(correct_groups)
 
-    if guesses >= max_guesses:
-        print("Maximum guess limit reached. Evaluation stopped.")
 
     print(f"\nPuzzle solved in {guesses} guesses!")
     print(f"Correct groups: {state['correct_groups']}")
