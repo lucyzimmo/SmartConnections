@@ -3,7 +3,7 @@ import random
 import os
 from baseline import evaluate_baseline, q_learning
 from generateRandom import generate_random_puzzle_from_past_words
-from deepq import train_word2vec, QNetwork, evaluate_q_network, train_q_network
+from deepq_experiment import train_word2vec_experiment, QNetwork, evaluate_q_network_experiment, train_q_network_experiment
 import torch
 import torch.optim as optim
 import torch.nn as nn
@@ -64,7 +64,7 @@ def main():
         print("Q-network training complete and weights saved to q_network.pth")
     else:
         print("Loading pre-trained Q-network weights...")
-        q_network.load_state_dict(torch.load("q_network_small.pth"))
+        q_network.load_state_dict(torch.load("q_network_experiment_medium.pth"))
         q_network.eval()
 
     # Pick and format a random puzzle from test.json

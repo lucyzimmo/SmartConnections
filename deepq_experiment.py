@@ -1,9 +1,7 @@
 """Experiments: 
 Dynamic epsilon Decay: Encourages exploration early and exploitation later.
-Precomputed Action Embeddings: Reduces redundancy by precomputing embeddings for possible actions.
 Nuanced Rewards: Introduced a slight penalty for incorrect guesses (-0.1) to provide better guidance.
-Checkpointing: Saves the model periodically during training.
-Evaluation Logs: Logs guesses and Q-values during evaluation."""
+"""
 import torch
 import torch.nn as nn
 import torch.optim as optim

@@ -185,10 +185,9 @@ def evaluate_q_network_experiment2(puzzle, q_network, word2vec_model):
 
     print("\nStarting Evaluation:")
     guesses = 0
-    max_guesses = 100  # Prevent infinite loops
     done = False
 
-    while not done and guesses < max_guesses:
+    while not done:
         guesses += 1
 
         # Embed current state

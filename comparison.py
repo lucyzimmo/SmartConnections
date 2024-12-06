@@ -10,10 +10,12 @@ import torch
 import torch.optim as optim
 import torch.nn as nn
 import copy
+import numpy as np
+import matplotlib.pyplot as plt
 
 # Function to load and format a random puzzle from small_test.json
 def pick_and_format_puzzle_from_small_test_json():
-    with open('data/small_test.json', 'r') as f:
+    with open('data/medium_test.json', 'r') as f:
         puzzles = json.load(f)
     selected_puzzle = random.choice(puzzles)
     puzzle_words = []
@@ -29,11 +31,38 @@ def pick_and_format_puzzle_from_small_test_json():
         "solution": puzzle_solution
     }
 
+# Summarize results
+def summarize_results(results):
+    return {
+        "average": np.mean(results),
+        "median": np.median(results),
+        "min": min(results),
+        "max": max(results),
+    }
+
+# Plot results
+def plot_results(methods, averages, medians, mins, maxs):
+    x = np.arange(len(methods))
+    plt.figure(figsize=(12, 6))
+    plt.bar(x - 0.2, averages, 0.2, label="Average")
+    plt.bar(x, medians, 0.2, label="Median")
+    plt.bar(x + 0.2, mins, 0.2, label="Min")
+    plt.bar(x + 0.4, maxs, 0.2, label="Max")
+    plt.xticks(x + 0.1, methods)
+    plt.xlabel("Method")
+    plt.ylabel("Guesses")
+    plt.title("Performance Comparison")
+    plt.legend()
+    plt.show()
+
 # Main function
 def main():
     # Load puzzles
-    with open('data/small.json', 'r') as f:
+    with open('data/medium.json', 'r') as f:
         puzzles = json.load(f)
+
+    print("Training baseline Q-learning...")
+    q_learning(puzzles, 500)
 
     # Train Word2Vec
     print("Training Word2Vec...")
@@ -43,28 +72,23 @@ def main():
     input_dim = 600  # 300 (state embedding) + 300 (action embedding)
     q_network = QNetwork(input_dim)
     q_network_experiment = QNetwork(input_dim)
-    q_network_experiment2 = QNetwork(input_dim)
 
     # Load pre-trained weights
     print("Loading pre-trained Q-network weights...")
-    q_network.load_state_dict(torch.load("q_network_small.pth"))
+    q_network.load_state_dict(torch.load("q_network_medium.pth"))
     q_network.eval()
 
     print("Loading pre-trained Q-network weights for Experiment 1...")
-    q_network_experiment.load_state_dict(torch.load("q_network_experiment.pth"))
+    q_network_experiment.load_state_dict(torch.load("q_network_experiment_medium.pth"))
     q_network_experiment.eval()
 
-    print("Loading pre-trained Q-network weights for Experiment 2...")
-    q_network_experiment2.load_state_dict(torch.load("q_network_experiment2.pth"))
-    q_network_experiment2.eval()
 
-    # Run evaluations 10 times
+    # Run evaluations 100 times
     baseline_results = []
     deepq_results = []
     experiment1_results = []
-    experiment2_results = []
 
-    for i in range(10):
+    for i in range(100):
         print(f"\nRun {i + 1}/10")
 
         # Pick and format a random puzzle
@@ -85,30 +109,26 @@ def main():
         experiment1_guesses = evaluate_q_network_experiment(experiment1_puzzle, q_network_experiment, word2vec_model)
         experiment1_results.append(experiment1_guesses)
 
-        # Evaluate Experiment 2 Q-network
-        experiment2_puzzle = copy.deepcopy(puzzle)
-        experiment2_guesses = evaluate_q_network_experiment2(experiment2_puzzle, q_network_experiment2, word2vec_model)
-        experiment2_results.append(experiment2_guesses)
 
     # Summarize results
-    def summarize_results(results):
-        return {
-            "average": sum(results) / len(results),
-            "min": min(results),
-            "max": max(results),
-        }
-
     baseline_summary = summarize_results(baseline_results)
     deepq_summary = summarize_results(deepq_results)
     experiment1_summary = summarize_results(experiment1_results)
-    experiment2_summary = summarize_results(experiment2_results)
 
     # Display results
-    print("\nResults Summary (Average, Min, Max Guesses):")
+    print("\nResults Summary (Average, Median, Min, Max Guesses):")
     print(f"Baseline: {baseline_summary}")
     print(f"Standard Q-Network: {deepq_summary}")
     print(f"Experiment 1 Q-Network: {experiment1_summary}")
-    print(f"Experiment 2 Q-Network: {experiment2_summary}")
+
+    # Plot results
+    methods = ["Baseline", "Standard Q-Network", "Experiment 1 Q-Network"]
+    averages = [baseline_summary["average"], deepq_summary["average"], experiment1_summary["average"]]
+    medians = [baseline_summary["median"], deepq_summary["median"], experiment1_summary["median"]]
+    mins = [baseline_summary["min"], deepq_summary["min"], experiment1_summary["min"]]
+    maxs = [baseline_summary["max"], deepq_summary["max"], experiment1_summary["max"]]
+
+    plot_results(methods, averages, medians, mins, maxs)
 
 if __name__ == "__main__":
     main()

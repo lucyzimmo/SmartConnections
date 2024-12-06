@@ -32,31 +32,17 @@ def train_word2vec(puzzles):
     model = Word2Vec([words], vector_size=embedding_dim, window=5, min_count=1, workers=4)
     return model
 
-# Embed words
-#3def embed_words(words, model):
-#    if not words:
-#        return torch.zeros(embedding_dim, dtype=torch.float32)  # Return a zero-vector if no words
-#    valid_vectors = [model.wv[word] for word in words if word in model.wv]
-#    if not valid_vectors:
-#        return torch.zeros(embedding_dim, dtype=torch.float32)  # Return zero-vector if no valid words
-#    return torch.tensor(sum(valid_vectors) / len(valid_vectors), dtype=torch.float32)
-
+# Embed words using Word2Vec
 def embed_words(words, model):
     vocabulary = list(model.wv.key_to_index.keys())
-    #(f"[DEBUG] Word2Vec Vocabulary ({len(vocabulary)} words): {vocabulary}")
 
     if not words:
-        #print("[DEBUG] Empty words list provided to embed_words.")
         return torch.zeros(embedding_dim, dtype=torch.float32)  # Return a zero-vector if no words
     
     # Check if words are in the Word2Vec vocabulary
     valid_vectors = [model.wv[word] for word in words if word in model.wv]
     if not valid_vectors:
-        #print(f"[DEBUG] None of the words are in the Word2Vec vocabulary: {words}")
         return torch.zeros(embedding_dim, dtype=torch.float32)  # Return zero-vector if no valid words
-
-    # Debugging valid vectors
-    #print(f"[DEBUG] Valid word embeddings: {[model.wv[word] for word in words if word in model.wv]}")
     
     # Compute the average embedding
     return torch.tensor(sum(valid_vectors) / len(valid_vectors), dtype=torch.float32)
