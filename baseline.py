@@ -123,7 +123,6 @@ def evaluate_baseline(puzzle):
             state["correct_groups"].append(set(action))
             state["remaining_words"] = [w for w in state["remaining_words"] if w not in action]
         else:
-            #print(f"\nGuess #{guesses + 1}: {action} -> Incorrect group.")
             state["incorrect_groups"].append(set(action))
 
         guesses += 1

@@ -3,7 +3,7 @@ import random
 import os
 from baseline import evaluate_baseline, q_learning
 from generateRandom import generate_random_puzzle_from_past_words
-from deepq import train_word2vec, QNetwork, evaluate_deepq, train_q_network
+from deepq import train_word2vec, QNetwork, evaluate_q_network, train_q_network
 import torch
 import torch.optim as optim
 import torch.nn as nn
@@ -43,8 +43,8 @@ def main():
         puzzles = json.load(f)
 
     # Train baseline Q-learning
-    print("Training baseline Q-learning...")
-    q_learning(puzzles, 500)
+    #print("Training baseline Q-learning...")
+    #q_learning(puzzles, 500)
 
     # Train Word2Vec
     print("Training Word2Vec...")
@@ -57,14 +57,14 @@ def main():
     loss_fn = nn.MSELoss()
 
     # Check if Q-network weights exist
-    if not os.path.exists("q_network.pth"):
+    if not os.path.exists("q_network_small.pth"):
         print("Q-network weights not found. Training the Q-network...")
         train_q_network(puzzles, word2vec_model, num_episodes=10, q_network=q_network, optimizer=optimizer, loss_fn=loss_fn)
-        torch.save(q_network.state_dict(), "q_network.pth")
+        torch.save(q_network.state_dict(), "q_network_small.pth")
         print("Q-network training complete and weights saved to q_network.pth")
     else:
         print("Loading pre-trained Q-network weights...")
-        q_network.load_state_dict(torch.load("q_network.pth"))
+        q_network.load_state_dict(torch.load("q_network_small.pth"))
         q_network.eval()
 
     # Pick and format a random puzzle from test.json
@@ -76,7 +76,7 @@ def main():
     baseline_guesses = evaluate_baseline(baseline_puzzle)
     print("\nEvaluating Deep Q-Learning Method...")
     deepq_puzzle = copy.deepcopy(puzzle)  # Create a deep copy
-    deepq_guesses = evaluate_deepq(deepq_puzzle, q_network, word2vec_model)
+    deepq_guesses = evaluate_q_network(deepq_puzzle, q_network, word2vec_model)
     # Compare results
     print("\nComparison:")
     print(baseline_guesses)

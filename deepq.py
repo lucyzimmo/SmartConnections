@@ -25,6 +25,7 @@ class QNetwork(nn.Module):
         x = torch.relu(self.fc3(x))
         return self.output(x)
 
+
 # Train Word2Vec
 def train_word2vec(puzzles):
     words = [word for puzzle in puzzles for group in puzzle["answers"] for word in group["members"]]
@@ -171,7 +172,7 @@ def generate_possible_actions(words):
     return list(combinations(words, 4))
 
 # Evaluate using deep Q-learning
-def evaluate_deepq(puzzle, q_network, word2vec_model):
+def evaluate_q_network(puzzle, q_network, word2vec_model):
     correct_groups = puzzle["solution"]
     all_words = puzzle["puzzle_words"]
     state = {
